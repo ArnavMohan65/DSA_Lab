@@ -1,48 +1,61 @@
 //1.	Write a Program to implement single linked list and its operations
 import java.util.LinkedList;
 
-public class M_21_linkedList {
+public class M_24_QueueLL {
     Node head;
     Node tail;
     int size;
     public static void main(String[] args) {
 //        LinkedList operation using class and node concept
         LinkedList<Integer> l = new LinkedList<>();
-        M_21_linkedList nl = new M_21_linkedList();
+        M_24_QueueLL nl = new M_24_QueueLL();
         nl.insertFirst(3);
         nl.insertFirst(2);
+        nl.insertFirst(5);
         nl.insertFirst(8);
-        nl.insertFirst(17);
-        nl.insertFirst(15);
-        nl.insertLast(19);
-//        nl.display();
-//        nl.insert(69,2);
         nl.display();
         System.out.println();
-//        System.out.println(nl.deleteFirst());
+        System.out.println("enqueue");
+        nl.enqueue(17);
         nl.display();
-//        LinkedList Operations -> using predefined Library
-//        l.add(10);
-//        l.add(8);
-//        l.add(3);
-//        l.add(7);
-//        l.add(19);
-//        System.out.println(l.get(0));
-//        l.addFirst(0);
-//        l.addLast(100);
-//        l.indexOf(10);
-//        System.out.println(l.size());
-//        System.out.println(l.contains(54));
-//        System.out.println(l.peek());
-//        l.push(17);
-//        System.out.println(l.pop());
-//        l.poll();
-//        l.remove();
-
-
+        System.out.println("dequeue");
+        nl.deque();
+        nl.display();
+//        nl.insertLast(19);
+//        nl.insertFirst(17);
+//        nl.display();
     }
 
-    M_21_linkedList()
+//    This operation adds a new node after the rear and moves the rear to the next node #basically insertLast()
+    public void enqueue(int val)
+    {
+        if (tail == null) {
+            insertFirst(val);
+            return;
+        }
+        Node node = new Node(val);
+        tail.next = node;
+        tail = node;
+        size++;
+    }
+
+//    This operation removes the front node and moves the front to the next node #basically deleteFirst()
+    public void deque()
+    {
+        if (head == null) {
+            tail = head;
+            return;
+        }
+        Node node = head;
+        head = node.next;
+        size --;
+        if(head == null)
+        {
+            tail = head = null;
+        }
+    }
+
+    M_24_QueueLL()
     {
         this.size = 0;
     }
@@ -70,15 +83,16 @@ public class M_21_linkedList {
         return node;
     }
 
-    public void insertFirst(int val) {
-        Node node = new Node(val);
+    public void insertFirst(int value)
+    {
+        Node node = new Node(value);
+
         node.next = head;
         head = node;
-
-        if (tail == null) {
+        if(tail == null){
             tail = head;
         }
-        size += 1;
+        size++;
     }
 
     public int deleteFirst()
@@ -107,16 +121,16 @@ public class M_21_linkedList {
         prev.next = prev.next.next;
         return val;
     }
-    public void insertLast(int val) {
-        if(tail == null) {
-            insertFirst(val);
+    public void insertLast(int value)
+    {
+        if(tail == null){
+            insertFirst(value);
             return;
         }
-        Node node = new Node(val);
+        Node node = new Node(value);
         tail.next = node;
         tail = node;
         size++;
-
     }
 
     public void insert(int value,int index)
